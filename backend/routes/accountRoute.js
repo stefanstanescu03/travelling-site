@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       phone: req.body.phone,
+      favourites: [],
     };
 
     const response = await Account.create(newAccount);
@@ -118,7 +119,8 @@ router.put("/:id", async (req, res) => {
       !req.body.password ||
       !req.body.email ||
       !req.body.first_name ||
-      !req.body.last_name
+      !req.body.last_name ||
+      !req.body.favourites
     ) {
       return res.status(400).send({ message: "Incomplete informations" });
     }

@@ -26,6 +26,10 @@ const accountSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    favourites: {
+      type: [String],
+      equired: true,
+    },
   },
   { timestamps: true }
 );
