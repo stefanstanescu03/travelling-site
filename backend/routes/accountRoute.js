@@ -111,4 +111,30 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    if (
+      !req.body.username ||
+      !req.body.password ||
+      !req.body.email ||
+      !req.body.first_name ||
+      !req.body.last_name
+    ) {
+      return res.status(400).send({ message: "Incomplete informations" });
+    }
+
+    const { id } = req.params;
+
+    const account = await Account.findByIdAndUpdate(id, req.body);
+    if (!account) {
+      return res.status(404).send({ message: "Account not found" });
+    }
+
+    return res.status(200).send(account);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: error.message });
+  }
+});
+
 export default router;
