@@ -24,8 +24,8 @@ router.post("/", async (req, res) => {
       phone: req.body.phone,
     };
 
-    const account = await Account.create(newAccount);
-    return res.status(200).send(account);
+    const response = await Account.create(newAccount);
+    return res.status(200).send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
@@ -36,16 +36,16 @@ router.get("/:username", async (req, res) => {
   try {
     const { username } = req.params;
 
-    const account = await Account.find(
+    const response = await Account.find(
       { username: username },
       { password: 0, _id: 0 }
     );
 
-    if (!account) {
-      return res.status(200).send({ message: "Account not found" });
+    if (!response) {
+      return res.status(404).send({ message: "Account not found" });
     }
 
-    return res.status(200).send(account);
+    return res.status(200).send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
@@ -56,13 +56,13 @@ router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const account = await Account.findById(id);
+    const response = await Account.findById(id);
 
-    if (!account) {
-      return res.status(200).send({ message: "Account not found" });
+    if (!response) {
+      return res.status(404).send({ message: "Account not found" });
     }
 
-    return res.status(200).send(account);
+    return res.status(200).send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
@@ -75,7 +75,7 @@ router.get("/", async (req, res) => {
       return res.status(400).send({ message: "Incomplete informations" });
     }
 
-    const account = await Account.find(
+    const response = await Account.find(
       {
         password: req.body.password,
         username: req.body.username,
@@ -83,11 +83,11 @@ router.get("/", async (req, res) => {
       { password: 0, _id: 0 }
     );
 
-    if (!account) {
-      return res.status(200).send({ message: "Account not found" });
+    if (!response) {
+      return res.status(404).send({ message: "Account not found" });
     }
 
-    return res.status(200).send(account);
+    return res.status(200).send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
@@ -98,13 +98,13 @@ router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const account = await Account.findByIdAndDelete(id);
+    const response = await Account.findByIdAndDelete(id);
 
-    if (!account) {
-      return res.status(200).send({ message: "Account not found" });
+    if (!response) {
+      return res.status(404).send({ message: "Account not found" });
     }
 
-    return res.status(200).send(account);
+    return res.status(200).send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
