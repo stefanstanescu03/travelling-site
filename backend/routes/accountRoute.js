@@ -125,12 +125,12 @@ router.put("/:id", async (req, res) => {
 
     const { id } = req.params;
 
-    const account = await Account.findByIdAndUpdate(id, req.body);
-    if (!account) {
+    const response = await Account.findByIdAndUpdate(id, req.body);
+    if (!response) {
       return res.status(404).send({ message: "Account not found" });
     }
 
-    return res.status(200).send(account);
+    return res.status(200).send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error.message });
