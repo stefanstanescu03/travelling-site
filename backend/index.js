@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import testRoute from "./routes/testRoute.js";
@@ -9,6 +10,14 @@ import commentRoute from "./routes/commentRoute.js";
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000/",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 app.use("/test", testRoute);
 app.use("/accounts", accountRoute);
